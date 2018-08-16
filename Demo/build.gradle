@@ -1,0 +1,45 @@
+apply plugin: 'com.android.application'
+//apply plugin: 'com.google.gms.google-services'
+
+android {
+
+    compileSdkVersion rootProject.ext.compileSdkVersion as Integer
+    buildToolsVersion rootProject.ext.buildToolsVersion as String
+    defaultConfig {
+        applicationId "com.vng.zing.zdice"
+        minSdkVersion rootProject.ext.minSdkVersion as Integer
+        targetSdkVersion rootProject.ext.targetSdkVersion as Integer
+        multiDexEnabled true
+    }
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
+        }
+    }
+
+    dexOptions {
+        javaMaxHeapSize "8g"
+    }
+    lintOptions {
+        abortOnError false        // true by default
+        checkAllWarnings false
+        checkReleaseBuilds false
+        ignoreWarnings true       // false by default
+        quiet true                // false by default
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:support-v4:23.+'
+    implementation 'com.google.android.gms:play-services-auth:10.2.0'
+    implementation project(':libZaloSDK-v2.3.01.5-authenext')
+    implementation project(':libZaloSDK-v2.3.01.8')
+}
